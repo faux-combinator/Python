@@ -13,4 +13,10 @@ def lex(rules, code):
         tokens.append({'type': type, 'value': value})
         code = code[len(value):]
         break
+    else:
+      raise LexerException("unable to match {0}".format(code[0:15]))
+
   return tokens
+
+class LexerException(Exception):
+  pass

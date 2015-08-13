@@ -1,5 +1,5 @@
 import re
-base_regexp = "^(%s)"
+base_regexp = "^(%s)" # regexp to capture the value
 
 def lex(rules, code):
   tokens = []

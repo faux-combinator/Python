@@ -17,6 +17,26 @@ class Parser:
     except ParserException:
       self.tokens = tokens
 
+  def one_of(self, *rules):
+    for rule in rules:
+      result = self.maybe(rule)
+      if result:
+        return result
+    raise ParserException("unable to parse one_of cases")
+
+  def any_of(self, rule):
+    tokens = []
+    # I don't like python very much...
+    # Gimme my "while (a = b):"... plz...
+    res = self.maybe(rule)
+    while res:
+      tokens.append(res)
+      res = self.maybe(rule)
+    return tokens
+  
+  def many_of(self, rule):
+    return [rule()] + self.any_of(rule)
+
 class ParserException(Exception):
   pass
 
